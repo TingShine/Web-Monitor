@@ -5,12 +5,18 @@
   "author": "TingShine",
   "main": "index.js",
   "scripts": {
-    "test": "tsc && node dist/tests/index.js"
+    "test": "npm run build && node dist/tests/index.js",
+    "build": "rollup --config"
   },
+  "type": "commonjs",
   "keywords": [],
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/node": "^18.14.6",
+    "rollup": "^3.18.0",
+    "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^4.9.5"
   },
   "dependencies": {
