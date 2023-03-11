@@ -1,5 +1,5 @@
 import { IConfig } from "./types"
-import { getDefaultConfig, VERSION } from "./config"
+import { getDefaultConfig } from "./config"
 import EventEmitter from "eventemitter3"
 
 /** 单例模式 */
