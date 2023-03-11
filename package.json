@@ -5,7 +5,7 @@
   "author": "TingShine",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build && node dist/bundle.min.js",
+    "test": "tsc && node dist/tests/index.js",
     "build": "rollup --config"
   },
   "type": "commonjs",
