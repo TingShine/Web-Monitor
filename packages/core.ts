@@ -1,6 +1,7 @@
-import { CoreStatusEnum, IConfig } from "./types"
+import { CoreStatusEnum, IConfig, LifeCycleEnum } from "./types"
 import { getDefaultConfig } from "./config"
 import EventEmitter from "eventemitter3"
+import { Plugin } from "./plugin"
 
 /** 单例模式 */
 export class Core {
@@ -8,6 +9,8 @@ export class Core {
   private config = getDefaultConfig()
   private static instance: Core
   public status = CoreStatusEnum.UNINITIALIZED
+
+  private plugins: Plugin[] = []
 
   /** 生命周期 */
   public lifeCycle = new EventEmitter()
@@ -28,7 +31,8 @@ export class Core {
   public init(config : Partial<IConfig>) {
     this.setConfig(config)
     this.status = CoreStatusEnum.INITIALIZED
-    this.lifeCycle.emit('initialized')
+    this.lifeCycle.emit(LifeCycleEnum.INITIALIZED)
+    this.loadPlugins()
   }
   public static init(config : Partial<IConfig>) {
     if (!Core.instance) {
@@ -48,7 +52,43 @@ export class Core {
     return this.config
   }
 
-  public info() {}
+  /** 加载所有插件 */
+  private loadPlugins() {
+    if (this.status !== CoreStatusEnum.UNINITIALIZED && this.plugins.length) {
+      for (const plugin of this.plugins) {
+        try {
+          this.usePlugin(plugin)
+        } catch (err: any) {
+          console.warn(`Plugin ${plugin.name} loaded failed, reason: ${err.toString()}`)
+        }
+      }
+    }
+
+    this.status = CoreStatusEnum.READY
+    this.lifeCycle.emit(LifeCycleEnum.READY)
+  }
+
+  /** 加载插件 */
+  private usePlugin(plugin: Plugin) {
+    if (this.plugins.some(plu => plu.name === plugin.name)) {
+      return
+    }
+
+    this.installPlugin(plugin)
+  }
+
+  /** 插件初始化执行 */
+  public installPlugin(plugin: Plugin): boolean {
+    try {
+      const result: boolean = plugin.install(this)
+
+      return result
+    } catch (e) {
+      return false
+    }
+  }
+
+  public info(msg: any) {}
 
   public warn() {}
 
