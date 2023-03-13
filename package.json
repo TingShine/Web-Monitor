@@ -5,8 +5,10 @@
   "author": "TingShine",
   "main": "index.js",
   "scripts": {
-    "test": "tsc && node dist/tests/index.js",
-    "build": "rollup --config"
+    "test": "tsc --module commonjs && node dist/tests/index.js",
+    "build": "rollup --config",
+    "dev": "rollup --config --watch",
+    "docs": "typedoc --options  typedoc.json"
   },
   "type": "commonjs",
   "keywords": [],
@@ -16,9 +18,11 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/node": "^18.14.6",
     "rollup": "^3.18.0",
+    "rollup-plugin-dts": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
+    "typedoc": "^0.23.26",
     "typescript": "^4.9.5"
   },
   "dependencies": {
