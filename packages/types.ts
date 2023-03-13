@@ -1,5 +1,3 @@
-import { Core } from "./core";
-
 export enum LogType {
   LOG = 'log',
   WARN = 'warn',
@@ -20,11 +18,10 @@ export enum CoreStatusEnum {
 
 export interface IConfig {
   /** 上报地址 */
-  hostUrl: string;
-  /** Console.log日志拦截 */
-  logInterception: boolean;
+  hostUrl?: string;
+  [x: string]: any;
 }
 
 export interface IPluginConfig {
-  
+  name: string
 }

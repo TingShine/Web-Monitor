@@ -16,13 +16,14 @@ const buildOption = {
     typescript(),
     replace({
       VERSION: JSON.stringify(version),
-    })
+    }),
   ],
   output: [
     {
       sourcemap: true,
       file: 'dist/bundle.js',
-      format: 'cjs'
+      format: 'cjs',
+      name: 'monitor',
     },
     {
       file: 'dist/bundle.min.js',

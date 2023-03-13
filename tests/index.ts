@@ -1,5 +1,9 @@
-import Core from '../packages';
+import WebMonitor from '../packages';
 
-const core = Core.getInstance();
-core.init({ hostUrl: 'hello' })
-console.log(Core.version);
+WebMonitor.init({
+  hostUrl: 'hello-world',
+  logInterceptor: true,
+})
+const monitor = WebMonitor.getInstance();
+
+console.log(monitor);

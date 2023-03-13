@@ -1,4 +1,4 @@
-import { Core } from './core'
+import { WebMonitor } from './web-sdk/index'
 
-export default Core
-export { Core }
+export default WebMonitor
+export { WebMonitor }
